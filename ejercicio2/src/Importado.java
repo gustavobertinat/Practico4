@@ -2,15 +2,21 @@ public class Importado extends Articulo {
     private double impuesto;
     private int anioImportacion;
 
-    public Importado(String nombre, double precioCosto, double impuesto, int anioImportacion) {
-        super(nombre, precioCosto);
+    public Importado(int codigo, String nombre, double precioCosto, double impuesto, int anioImportacion) {
+        super(codigo, nombre, precioCosto);
         this.impuesto = impuesto;
         this.anioImportacion = anioImportacion;
     }
 
     @Override
     public double calcularPrecioVenta() {
-        return getPrecioVentaInicial() + impuesto;
+        double base = getPrecioVentaInicial();
+        if (anioImportacion < 2008) {
+            base += impuesto * 0.8; // Suma el 80% del impuesto
+        } else {
+            base += impuesto; // Suma completo
+        }
+        return base;
     }
 
     @Override
@@ -22,6 +28,5 @@ public class Importado extends Articulo {
         System.out.println("==========================");
     }
 }
-
 
 
